@@ -21,6 +21,7 @@ public class Startup : FunctionsStartup
         );
         builder.Services.AddSingleton<CosmosDbServices>();
         builder.Services.AddSingleton<LineNotifyServices>();
+        builder.Services.AddSingleton<LineBotService>();
     }
 }
 

@@ -13,17 +13,20 @@ namespace PttSpider
     {
         public PttSpiderTrigger(ILogger<PttSpiderTrigger> logger,
         CosmosDbServices cosmosDbServices,
-        LineNotifyServices lineNotifyServices
+        LineNotifyServices lineNotifyServices,
+        LineBotService lineBotService
         )
         {
             _logger = logger;
             _cosmosDbServices = cosmosDbServices;
             _lineNotifyServices = lineNotifyServices;
+            _lineBotService = lineBotService;
         }
         private readonly string _pttNotifyUrl = "https://www.ptt.cc";
         private readonly ILogger<PttSpiderTrigger> _logger;
         private readonly CosmosDbServices _cosmosDbServices;
         private readonly LineNotifyServices _lineNotifyServices;
+        private readonly LineBotService _lineBotService;
 
         [FunctionName("PttSpiderTrigger")]
         public async Task Run([TimerTrigger("*/10 * * * * *")] TimerInfo myTimer)
@@ -53,7 +56,8 @@ namespace PttSpider
                         if (!await _cosmosDbServices.CheckIsCatch(blog))
                         {
                             var user = await _cosmosDbServices.GetUser(rule.UserId!);
-                            await _lineNotifyServices.SendLineNotitfy(user!, blog.Title + " " + blog.Url);
+                            await _lineNotifyServices.SendLineNotify(user!, blog.Title + " " + blog.Url);
+                            await _lineBotService.PushMessageAsync(user!, blog.Title + " " + blog.Url);
                             await _cosmosDbServices.LogCatch(blog);
                         }
 

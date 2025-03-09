@@ -9,7 +9,7 @@ namespace PttSpider.Services;
 public class LineNotifyServices
 {
     private readonly string _lineNotifyUrl = "https://notify-api.line.me/api/notify";
-    public async Task<string> SendLineNotitfy(Account account, string message)
+    public async Task<string> SendLineNotify(Account account, string message)
     {
         try
         {

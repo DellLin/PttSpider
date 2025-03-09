@@ -7,39 +7,30 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PttSpider.Models;
 public class Account
 {
-    [Column("id")]
     [JsonProperty("id")]
     public string? Id { get; set; }
 
-    [Column("id")]
     [JsonProperty("name")]
     public string? Name { get; set; }
 
-    [Column("id")]
     [JsonProperty("email")]
     public string? Email { get; set; }
 
-    [Column("id")]
     [JsonProperty("picture")]
     public string? Picture { get; set; }
 
-    [Column("id")]
     [JsonProperty("refreshToken")]
     public string? RefreshToken { get; set; }
 
-    [Column("id")]
     [JsonProperty("lineId")]
     public string? LineId { get; set; }
 
-    [Column("id")]
     [JsonProperty("lineName")]
     public string? LineName { get; set; }
 
-    [Column("id")]
     [JsonProperty("lineLoginAccessToken")]
     public string? LineLoginAccessToken { get; set; }
 
-    [Column("id")]
     [JsonProperty("lineLoginRefreshToken")]
     public string? LineLoginRefreshToken { get; set; }
 
@@ -63,5 +54,10 @@ public class Account
 
     [JsonProperty("googlePicture")]
     public string? GooglePicture { get; set; }
+    [JsonProperty("lineBotUserId")]
+    public string? LineBotUserId { get; set; }
+    [JsonProperty("nonce")]
+    public string? Nonce { get; set; }
 
 }
+
