@@ -56,6 +56,16 @@ namespace PttSpider
                         if (!await _cosmosDbServices.CheckIsCatch(blog))
                         {
                             var user = await _cosmosDbServices.GetUser(rule.UserId!);
+                            if (user == null)
+                            {
+                                _logger.LogInformation($"User not found");
+                                continue;
+                            }
+                            if (string.IsNullOrEmpty(user.LineBotUserId))
+                            {
+                                _logger.LogInformation($"User {user.Id} not bind LineBotUserId");
+                                continue;
+                            }
                             // await _lineNotifyServices.SendLineNotify(user!, blog.Title + " " + blog.Url);
                             await _lineBotService.PushMessageAsync(user!, blog.Title + " " + blog.Url);
                             await _cosmosDbServices.LogCatch(blog);
